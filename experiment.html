@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<!-- 1_CE -->
+<html>
+  <head>
+    <title>
+      Language Experiment
+    </title><!--JS-->
+    <!-- external general utilities -->
+    <script src="shared/js/jquery-1.11.1.min.js"></script>
+    <script src="shared/full-projects/jquery-ui/jquery-ui.min.js"></script>
+    <script src="shared/js/underscore-min.js"></script>
+<!-- 	<script src="shared/js/mmturkey.js"></script>
+	<script src="shared/js/uniqueturker.js"></script> -->
+    
+    <!-- experiment logic -->
+    <script src="shared/js/exp-V2.js"></script>
+    <script src="shared/js/stream-V2.js"></script>
+
+  <!-- utilities to submit data to proliferate -->
+  <script src="https://proliferate.alps.science/static/js/proliferate.js"></script>
+
+    <!-- general utilities -->
+    <script src="shared/js/browserCheck.js"></script>
+    <script src="shared/js/utils.js"></script>
+    <link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="shared/css/cocolab-style.css" rel="stylesheet" type="text/css">
+    <link href="css/local-style.css" rel="stylesheet" type="text/css">
+
+    <!-- experiment file -->
+    <script src="js/experiment.js"></script>
+
+    <!-- stimulus file -->
+	<script src="js/stimuli.js"></script>
+
+	    </script>
+	
+  </head>
+
+  <body onload="init()">
+    <noscript>This task requires JavaScript.</noscript>
+    
+    <!-- initial slide -->
+    <div class="slide" id="i0">
+		  <p class="center">
+        You will listen to a series of short phrases spoken by different people. <br>
+        <br>  <strong> Your task is to make decisions about the speakers as fast as you can. </strong><br>
+        <br>
+        The experiment will take approximately 30 minutes.
+      </p><button id="start_button" type="button">Start experiment</button>
+      <p class="left legal">
+        <strong><br>
+        <br>
+        <br>
+        LEGAL INFORMATION</strong>:<br>
+		Nonmedical Human Participants Consent Form and Waiver of Documentation
+
+<br>		STUDY TITLE: Language Production and Comprehension Studies
+
+		Protocol Director: Meghan Sumner
+
+<br>		DESCRIPTION: We invite you to participate in a research study on language production and comprehension. In this experiment, you will complete a linguistic task online such as reading sentences or words, naming pictures or describing scenes, making up sentences of your own, or participating in a simple language game. 
+<br>		RISKS AND BENEFITS: There are no known risks, costs, or discomforts in this study and this judgment is based on a large body of experience with the same or similar procedures with people of similar ages, sex, origins, etc.  We cannot and do not guarantee or promise that you will receive any benefits from this study. You will help us to understand how people recognize and perceive auditory stimuli. 
+<br>		TIME INVOLVEMENT: Your participation in this experiment will take less than one hour.
+<br>		PAYMENTS: You will be paid for your participation at the posted rate, consisted with online payment standards.
+<br>		SUBJECT'S RIGHTS: If you have read this form and have decided to participate in this project, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to answer particular questions. Your individual privacy will be maintained in all published and written data resulting from the study.
+<br>		CONTACT INFORMATION:
+		Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, please contact Prof. Meghan Sumner at (650) 723-4284.
+
+		Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, Stanford, CA 94305-5401 or email irbnonmed@stanford.edu.
+
+<br>		WAIVER OF DOCUMENTATION:
+		If you agree to participate in this research, please continue to begin the study. 
+
+<br>		IRB approval date: 4/29/21
+		Expiration date: (Does not expire) 
+		
+        
+      </p>
+    </div>
+	
+	
+	<!-- sound test slide -->
+	<div class="slide" id="sound_test">
+		<div class="text-center">
+			<br><br><br>
+			Press the play button to hear what word to type in the box. Once you type the word in the box below, you can continue.
+			<br><br>
+			<audio id="soundtest" controls src='soundtest.wav'> </audio>
+			<br><br>
+			<input type="text" class="sound_test">
+			<br><br>
+			In the task, the audio will play automatically and you'll only hear each word once so listen carefully!
+			<br><br>
+			<button id="soundtest_OK" onclick="_s.soundtest_OK()"> Continue </button>
+			
+  	      <div class="err">
+  	        <br>
+  	        <p>
+  	         Please listen to the audio and type in the word indicated.
+  	        </p>
+  	      </div>
+	</div>
+</div>
+
+    <!-- practice instructions slide -->
+    <div class="slide" id="practice_instructions">
+      <p id="instruct-text" class="center">
+        You will now complete two practice trials.<br><br> At the start of every trial, you will first hear a short phrase. <br><br> Your task is to make quick decisions about the speaker based on what you hear. <br><br> Place your left index finder on the S key. Place your right index finger on the L key.  <br><br> <strong> Press the S key if the correct speaker gender is on the LEFT side of the screen. <br> Press the L key if the correct speaker gender is on the RIGHT side of the screen. </strong> <br><br> <img src="keyboard_example.png" alt="keyboard_example" width="500" height="300">
+      </p>
+      <div class="center">
+        <button class="continueButton" onclick="_s.button()">Continue</button>
+      </div>
+    </div>
+	
+	
+	    <!-- practice trial 1-->
+	    <div class="slide" id="practice_trial_1">
+	<div id = "stimuli">
+	
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<table class="center">
+				<tr>
+					<td id="boy_ex1">
+						S = BOY
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td id="girl_ex1">
+						L = GIRL
+					</td>
+				</tr>
+			</table>
+		  </div>
+		<audio id="girl_ex" controls src='girl_ex.wav'> </audio>
+	<br> Your browser does not support the audio element. 
+	      <div class="err">
+	        <br>
+	        <p>
+	         Actually, the speaker is a GIRL so try again. 
+	        </p>
+	      </div>
+		  
+	      <div class="correct">
+	        <br>
+	        <p>
+	         Great, the speaker is a GIRL. 
+	        </p>
+	      </div>
+		  
+	 	 </div>
+		
+		
+		    <!-- practice trial 2 -->
+		    <div class="slide" id="practice_trial_2">
+		<div id = "stimuli">
+	
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<table class="center">
+				<tr>
+					<td id="girl_ex2">
+						S = GIRL
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td id="boy_ex2">
+						L = BOY
+					</td>
+				</tr>
+			</table>
+		
+		   <audio id="boy_ex" controls src='boy_ex.wav'> </audio> 
+		   <br>Your browser does not support the audio element. 
+     
+		      <div class="err">
+		        <br>
+		        <p>
+		         Great, the speaker is BOY 
+		        </p>
+		      </div>
+		  
+		      <div class="correct">
+		        <br>
+		        <p>
+		         Actually, the speaker is a BOY so try again. 
+		        </p>
+		      </div>
+			  
+		 	 </div>
+			 </div>
+	
+    <!-- main instructions slide -->
+    <div class="slide" id="startExp">
+      <br>
+      <br>
+      <p id="instruct-text" class="center">
+        Great! Now we can start the real experiment. You will listen to 240 phrases. <br><br> You will be asked to judge the speaker's occupation, region, and citizenship as fast as you can. <br><br> Your task is to press the S and L keys as fast as you can as you make decisions about the speaker's occupation, region, and citizenship status. <br><br> Place your left index finder on the S key. Place your right index finger on the L key.  <br><br> <strong> Press the S key if you think the word on the left best describes the speaker. Press the L key if you think the word on the right best describes the speaker.</strong> <br><br> <img src="keyboard_example.png" alt="keyboard_example" width="500" height="300">
+      </p>
+      <div class="center">
+        <button class="continueButton" onclick="_s.button()">Continue</button>
+      </div>
+    </div>
+
+    <!-- block 1 slide - profession AB-->
+    <div class="slide" id="block_1">
+<div id = "stimuli">
+	
+		<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<table class="center">
+			<tr>
+				<td id="non_stereotype_text">
+					S = WHITE-COLLAR
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td>
+					&emsp; 
+				</td>
+				<td id="stereotype_text">
+					L = BLUE-COLLAR
+				</td>
+			</tr>
+		</table>
+		
+   <audio id="block_1_audio"> 
+	   <source id="wav_src" src="" type="audio/wav"> 
+	  <br> <br>Your browser does not support the audio element. 
+   </audio>
+   
+ 	 </div>
+	  </div>
+	  
+	    <!-- block 2 slide - profession BA-->
+	    <div class="slide" id="block_2">
+	<div id = "stimuli">
+	
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<table class="center">
+				<tr>
+					<td id="stereotype_text">
+						S = BLUE-COLLAR
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td id="non_stereotype_text">
+						L = WHITE-COLLAR
+					</td>
+				</tr>
+			</table>
+		
+	   <audio id="block_2_audio"> 
+		   <source id="wav_src" src="" type="audio/wav"> 
+		   Your browser does not support the audio element. 
+	   </audio>
+   
+	 	 </div>
+		  </div>
+	
+	    <!-- block 3 slide - citizenship AB-->
+	    <div class="slide" id="block_3">
+	<div id = "stimuli">
+	
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<table class="center">
+				<tr>
+					<td id="non_stereotype_text">
+						S = BORN IN THE US
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td id="stereotype_text">
+						L = BORN OUTSIDE THE US
+					</td>
+				</tr>
+			</table>
+		
+	   <audio id="block_3_audio"> 
+		   <source id="wav_src" src="" type="audio/wav"> 
+		   Your browser does not support the audio element. 
+	   </audio>
+   
+	 	 </div>
+		  </div>
+		  
+	  	    <!-- block 4 slide - citizenship BA-->
+	  	    <div class="slide" id="block_4">
+	  	<div id = "stimuli">
+	
+	  			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	  			<table class="center">
+	  				<tr>
+	  					<td id="stereotype_text">
+	  						S = BORN OUTSIDE THE US
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td>
+	  						&emsp; 
+	  					</td>
+	  					<td id="non_stereotype_text">
+	  						L = BORN IN THE US
+	  					</td>
+	  				</tr>
+	  			</table>
+		
+	  	   <audio id="block_4_audio"> 
+	  		   <source id="wav_src" src="" type="audio/wav"> 
+	  		   Your browser does not support the audio element. 
+	  	   </audio>
+   
+	  	 	 </div>
+	  		  </div>
+			  
+		  	    <!-- block 5 slide - city AB-->
+		  	    <div class="slide" id="block_5">
+		  	<div id = "stimuli">
+	
+		  			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		  			<table class="center">
+		  				<tr>
+		  					<td id="non_stereotype_text">
+		  						S = SOUTH FLORIDA
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td>
+		  						&emsp; 
+		  					</td>
+		  					<td id="stereotype_text">
+		  						L = TEXAS BORDER
+		  					</td>
+		  				</tr>
+		  			</table>
+		
+		  	   <audio id="block_5_audio"> 
+		  		   <source id="wav_src" src="" type="audio/wav"> 
+		  		   Your browser does not support the audio element. 
+		  	   </audio>
+   
+		  	 	 </div>
+		  		  </div>
+	
+	    <!-- block 6 slide - citizenship AB-->
+	    <div class="slide" id="block_6">
+	<div id = "stimuli">
+	
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<table class="center">
+				<tr>
+					<td id="stereotype_text">
+						S = TEXAS BORDER
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td>
+						&emsp; 
+					</td>
+					<td id="non_stereotype_text">
+						L = SOUTH FLORIDA
+					</td>
+				</tr>
+			</table>
+		
+	   <audio id="block_6_audio"> 
+		   <source id="wav_src" src="" type="audio/wav"> 
+		   Your browser does not support the audio element. 
+	   </audio>
+   
+	 	 </div>
+		  </div>
+
+    <!-- subject information slide -->
+    <div class="slide" id="subj_info">
+      <div class="long_form">
+        <div class="subj_info_title">
+		   Questionnaire Section
+        </div>
+        <!-- <p class="info">
+          Answering these questions is optional, but will help us understand your answers.
+        </p> -->
+<!--         <p>
+          Did you understand the task?
+        </p><label>
+			<input type="radio" name="assess" value="Yes">Yes</label> <label>
+				<input type="radio" name="assess" value="No">No</label> <label>
+				<input type="radio" name="assess" value="Confused">I was confused</label> -->
+        <p>
+          Gender: <select id="gender">
+            <option value="">
+            </option>
+            <option value="Male">
+              Male
+            </option>
+            <option value="Female">
+              Female
+            </option>
+            <option value="Other">
+              Other
+            </option>
+            <option value="Prefer not to say">
+              Prefer not to say
+            </option>
+          </select>
+        </p>
+        <p>
+          Age: <input type="text" id="age">
+        </p>
+        <p>
+          Level of Education: <select id="education">
+            <option value="">
+            </option>
+            <option value="Some high school">
+              Some high school
+            </option>
+            <option value="Graduated high school">
+              Graduated high school
+            </option>
+            <option value="Some college">
+              Some college
+            </option>
+            <option value="Graduated college">
+              Graduated college
+            </option>
+            <option value="Hold a higher degree">
+              Hold a higher degree
+            </option>
+            <option value="Prefer not to say">
+              Prefer not to say
+            </option>
+          </select>
+        </p>
+		
+		<p> *Race/Ethnicity: <br>
+		<div class="race">    
+		    <span>
+		    <input id="White or Caucasian" name = "race" type="checkbox" value="White or Caucasian"/>
+		    <label for="race">White or Caucasian</label>
+		    </span> 
+			<br>
+		    <span>
+		    <input id="Black or African American" name = "race" type="checkbox" value="Black or African American"/>
+		    <label for="race">Black or African American</label>
+		    </span>    
+			<br>
+		    <span>
+		    <input id="Hispanic or Latinx" name = "race" type="checkbox" value="Hispanic or Latinx"/>
+		    <label for="race">Hispanic or Latina/o</label>
+		    </span>
+			<br>
+		    <span>
+		    <input id="Native American or Alaskan Native" name = "race" type="checkbox" value="Native American or Alaskan Native"/>
+		    <label for="race">Native American or Alaskan Native</label>
+		    </span>
+			<br>
+		    <span>
+		    <input id=" Asian or Pacific Islander" name = "race" type="checkbox" value=" Asian or Pacific Islander"/>
+		    <label for="race"> Asian or Pacific Islander</label>
+		    </span>
+			<br>
+		    <span>
+		    <input id="Prefer not to say" name = "race" type="checkbox" value="Prefer not to say"/>
+		    <label for="race">Prefer not to say</label>
+		    </span>
+		</div>
+		</p>
+		
+<!--         <p>
+          *Heritage Countries (ex. Cuba, Mexico): <input type="text" id="heritage_country">
+        </p> -->
+        <p>
+          *Current City, State: <input type="text" id="current_region">
+        </p>
+        <p>
+          Other Cities, States Lived In: <input type="text" id="other_regions">
+        </p>		
+        <p>
+          *Native Language: <input type="text" id="first_language">
+        </p>
+    <p>
+      Other Language(s) Spoken: <input type="text" id="other_languages">
+    </p>	
+<!--     <p>
+      *Age You Learned English: <input type="text" id="english_acquisition_age">
+    </p>	 -->
+    <p>
+      *Parents' Native Language(s): <input type="text" id="parent_languages">
+    </p>
+    <p>
+      *Exposure to Hispanic/ Latina/o Population: <select id="exposure">
+        <option value="">
+        </option>
+        <option value="Daily">
+          On a daily basis
+        </option>
+        <option value="Weekly">
+          On a weekly basis
+        </option>
+        <option value="Monthly">
+          On a monthly basis
+        </option>
+        <option value="Yearly">
+          On a yearly basis
+        </option>
+        <option value="Prefer not to say">
+          Prefer not to say
+        </option>
+      </select>
+    </p>	
+	
+<!--     <p>
+      Email (to receive $5 Amazon Gift Card): <input type="text" id="email">
+    </p> -->
+        <p>
+          Please leave any comments you have about this experiment here:
+        </p>
+        <textarea id="comments" rows="3" cols="50"></textarea><br>
+        <button onclick="_s.submit()">Submit</button>
+		
+	      <div class="err">
+	        <p>
+	         Please answer every required question.
+	        </p>
+	      </div>
+		
+      </div>
+    </div>
+
+    <!-- final slide -->
+    <div id="thanks" class="slide js">
+      <p class="big">
+        Thanks for your time!
+      </p>
+    </div>
+
+    <!-- progress bar -->
+    <div class="progress">
+      <span>Progress:</span>
+      <div class="bar-wrapper">
+        <div class="bar" style="width: 0%"></div>
+      </div>
+    </div>
+  </body>
+</html>
