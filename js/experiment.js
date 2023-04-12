@@ -6,6 +6,7 @@ function make_slides(f) {
   slides.i0 = slide({
     name: "i0",
       start: function() {
+      exp.startT = Date.now();
       },
       button: function() {
         exp.go(); //use exp.go() if and only if there is no "present" data.
@@ -17,7 +18,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
   
@@ -26,7 +27,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
   
@@ -35,7 +36,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
   
@@ -44,7 +45,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
   
@@ -53,7 +54,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
   
@@ -62,7 +63,7 @@ function make_slides(f) {
       start: function() {
       },
       button: function() {
-        exp.go(); //use exp.go() if and only if there is no "present" data.
+        // exp.go(); //use exp.go() if and only if there is no "present" data.
       },
   });
 
@@ -113,27 +114,25 @@ function make_slides(f) {
 		exp.response = "";
 
 // this connects to html file
-var prime_aud = document.getElementById("prime_stim");
+var practice1_aud = document.getElementById("girl_ex");
 
 // this indexes to the prime file name
-prime_aud.src = "audio/doctor.wav";
-prime_aud.load();
-prime_aud.play();
+practice1_aud.src = "audio/girl_ex.wav";
+practice1_aud.load();
+practice1_aud.play();
 
-prime_aud.onended = function() {
+practice1_aud.onended = function() {
 	console.log("audio ended");
-	setTimeout(function(){
-		console.log("waiting to play target");
-		target_aud.play();
-		exp.allow_key_press = 1;
-	 }, 500);
+      exp.allow_key_press = 1;
+	// setTimeout(function(){
+	//  }, 500);
 
 	 document.onkeydown = checkKey;
 	 function checkKey(e) {
 		 e = e || window.event;
 		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
 		 	 console.log("L pressed");
-			 exp.response = "real";
+			 exp.response = "girl";
 			 $('.err').hide();
 			 $('.correct').show();
 		 	setTimeout(function(){
@@ -142,7 +141,7 @@ prime_aud.onended = function() {
 		 	 }, 2000);
 		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
 		 	console.log("S pressed");
-			exp.response = "pseudo";
+			exp.response = "boy";
 			$('.err').show();
 		 }
 	 }
@@ -192,40 +191,46 @@ prime_aud.onended = function() {
  		exp.response = "";
 
  // this connects to html file
- var prime_aud = document.getElementById("prime_stim");
+ var practice2_aud = document.getElementById("boy_ex");
 
  // this indexes to the prime file name
- prime_aud.src = "audio/doctor.wav";
- prime_aud.load();
- prime_aud.play();
+ practice2_aud.src = "audio/boy_ex.wav";
+ practice2_aud.load();
+ practice2_aud.play();
 
- prime_aud.onended = function() {
+ practice2_aud.onended = function() {
  	console.log("audio ended");
- 	setTimeout(function(){
- 		console.log("waiting to play target");
- 		target_aud.play();
- 		exp.allow_key_press = 1;
- 	 }, 500);
+      exp.allow_key_press = 1;
+ 	// setTimeout(function(){
+ 	//  }, 500);
 
  	 document.onkeydown = checkKey;
  	 function checkKey(e) {
  		 e = e || window.event;
  		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
  		 	 console.log("L pressed");
- 			 exp.response = "real";
- 			 $('.err').show();
+ 			 exp.response = "boy";
+ 			 $('.correct').show();
+$('.err').hide();
+              setTimeout(function(){
+        exp.go();
+       }, 2000);
+
+
  		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
  		 	console.log("S pressed");
- 			exp.response = "pseudo";
- 			$('.err').hide();
-			$('.correct').show();
- 		 	setTimeout(function(){
-				exp.go();
- 		 	 }, 2000);
+ 			exp.response = "girl";
+ 			$('.err').show();
+			$('.correct').hide();
+ 		 	// setTimeout(function(){
+			// 	exp.go();
+ 		 	//  }, 2000);
  		 }
  	 }
 
   };
+
+
       },
 
       // handle click on "Continue" button
@@ -271,7 +276,7 @@ prime_aud.onended = function() {
     name: "block_1",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present: exp.stimuli_block1,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -294,8 +299,9 @@ var my_time;
    audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+      exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -311,10 +317,12 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
+          exp.exp.allow_key_press = 0;
+console.log("clicking disabled");
          exp.response_time = Date.now() - exp.startTime
          exp.response = "blue_collar";
          exp.response_type = "stereotype";
-      var stereotype_text_var = document.getElementById("stereotype_text");
+      var stereotype_text_var = document.getElementById("stereotype_text_1");
       stereotype_text_var.classList.add("active_bold");
       console.log('check:', stereotype_text_var.className);
          setTimeout(function(){
@@ -323,10 +331,12 @@ if (exp.response == null) {
         }, 1000);
        } if (e.keyCode == 83 && exp.allow_key_press == 1) {
         console.log("S pressed");
+           exp.allow_key_press = 0;
+console.log("clicking disabled");
         exp.response_time = Date.now() - exp.startTime
         exp.response = "white_collar";
         exp.response_type = "non_stereotype";
-      var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+      var non_stereotype_text_var = document.getElementById("non_stereotype_text_1");
       non_stereotype_text_var.classList.add("active_bold");
       console.log('check:', non_stereotype_text_var.className);
         setTimeout(function(){
@@ -345,8 +355,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_1");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_1");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -365,7 +375,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -384,7 +394,7 @@ if (exp.response == null) {
     name: "block_2",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present:  exp.stimuli_block2,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -407,8 +417,9 @@ var my_time;
    audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+       exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -424,10 +435,11 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
+           exp.allow_key_press = 0;
          exp.response_time = Date.now() - exp.startTime
          exp.response = "white_collar";
          exp.response_type = "non_stereotype";
-      var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+      var non_stereotype_text_var = document.getElementById("non_stereotype_text_2");
       non_stereotype_text_var.classList.add("active_bold");
       console.log('check:', non_stereotype_text_var.className);
          setTimeout(function(){
@@ -436,10 +448,11 @@ if (exp.response == null) {
         }, 1000);
        } if (e.keyCode == 83 && exp.allow_key_press == 1) {
         console.log("S pressed");
+        exp.allow_key_press = 0;
         exp.response_time = Date.now() - exp.startTime
         exp.response = "blue_collar";
         exp.response_type = "stereotype";
-      var stereotype_text_var = document.getElementById("stereotype_text");
+      var stereotype_text_var = document.getElementById("stereotype_text_2");
       stereotype_text_var.classList.add("active_bold");
       console.log('check:', stereotype_text_var.className);
         setTimeout(function(){
@@ -458,8 +471,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_2");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_2");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -478,7 +491,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -497,7 +510,7 @@ if (exp.response == null) {
     name: "block_3",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present:  exp.stimuli_block3,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -520,8 +533,9 @@ var my_time;
    audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+       exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -537,10 +551,11 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
+         exp.allow_key_press = 0;
          exp.response_time = Date.now() - exp.startTime
          exp.response = "born_outside_US";
          exp.response_type = "stereotype";
-      var stereotype_text_var = document.getElementById("stereotype_text");
+      var stereotype_text_var = document.getElementById("stereotype_text_3");
       stereotype_text_var.classList.add("active_bold");
       console.log('check:', stereotype_text_var.className);
          setTimeout(function(){
@@ -549,10 +564,11 @@ if (exp.response == null) {
         }, 1000);
        } if (e.keyCode == 83 && exp.allow_key_press == 1) {
         console.log("S pressed");
+        exp.allow_key_press = 0;
         exp.response_time = Date.now() - exp.startTime
         exp.response = "born_in_US";
         exp.response_type = "non_stereotype";
-      var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+      var non_stereotype_text_var = document.getElementById("non_stereotype_text_3");
       non_stereotype_text_var.classList.add("active_bold");
       console.log('check:', non_stereotype_text_var.className);
         setTimeout(function(){
@@ -571,8 +587,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_3");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_3");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -591,7 +607,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -610,7 +626,7 @@ if (exp.response == null) {
     name: "block_4",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present:  exp.stimuli_block4,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -633,8 +649,9 @@ var my_time;
    audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+       exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -650,10 +667,11 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
+         exp.allow_key_press = 0;
          exp.response_time = Date.now() - exp.startTime
          exp.response = "born_in_US";
          exp.response_type = "non_stereotype";
-      var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+      var non_stereotype_text_var = document.getElementById("non_stereotype_text_4");
       non_stereotype_text_var.classList.add("active_bold");
       console.log('check:', non_stereotype_text_var.className);
          setTimeout(function(){
@@ -662,10 +680,11 @@ if (exp.response == null) {
         }, 1000);
        } if (e.keyCode == 83 && exp.allow_key_press == 1) {
         console.log("S pressed");
+        exp.allow_key_press = 0;
         exp.response_time = Date.now() - exp.startTime
         exp.response = "born_outside_US";
         exp.response_type = "stereotype";
-      var stereotype_text_var = document.getElementById("stereotype_text");
+      var stereotype_text_var = document.getElementById("stereotype_text_4");
       stereotype_text_var.classList.add("active_bold");
       console.log('check:', stereotype_text_var.className);
         setTimeout(function(){
@@ -684,8 +703,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_4");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_4");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -704,7 +723,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -723,7 +742,7 @@ if (exp.response == null) {
     name: "block_5",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present:  exp.stimuli_block5,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -746,8 +765,9 @@ var my_time;
    audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+       exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -763,10 +783,11 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
+         exp.allow_key_press = 0;
          exp.response_time = Date.now() - exp.startTime
          exp.response = "texas_border";
          exp.response_type =  "stereotype";
-      var stereotype_text_var = document.getElementById("stereotype_text");
+      var stereotype_text_var = document.getElementById("stereotype_text_5");
       stereotype_text_var.classList.add("active_bold");
       console.log('check:', stereotype_text_var.className);
          setTimeout(function(){
@@ -775,10 +796,11 @@ if (exp.response == null) {
         }, 1000);
        } if (e.keyCode == 83 && exp.allow_key_press == 1) {
         console.log("S pressed");
+        exp.allow_key_press = 0;
         exp.response_time = Date.now() - exp.startTime
         exp.response = "south_florida";
         exp.response_type = "non_stereotype";
-      var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+      var non_stereotype_text_var = document.getElementById("non_stereotype_text_5");
       non_stereotype_text_var.classList.add("active_bold");
       console.log('check:', non_stereotype_text_var.className);
         setTimeout(function(){
@@ -797,8 +819,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_5");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_5");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -817,7 +839,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -836,7 +858,7 @@ if (exp.response == null) {
     name: "block_6",
 
     // To rotate through stimulus list, comment out the above 7 lines and  uncomment the following 2:
-    present: exp.stimuli,
+    present:  exp.stimuli_block6,
     present_handle : function(stim)
 	 {
 		exp.allow_key_press = 0;
@@ -859,8 +881,9 @@ var my_time;
 	 audio.onended = function() {
    exp.allow_key_press = 1;
   console.log("audio ended");
+       exp.startTime = Date.now();
   my_time = setTimeout(function(){
-    exp.startTime = Date.now();
+    // exp.startTime = Date.now();
 if (exp.response == null) {
                console.log("No response");
               exp.response_time = Date.now() - exp.startTime
@@ -901,10 +924,11 @@ if (exp.response == null) {
    		 e = e || window.event;
    		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
    		 	 console.log("L pressed");
+         exp.allow_key_press = 0;
    			 exp.response_time = Date.now() - exp.startTime
    			 exp.response = "south_florida";
          exp.response_type = "non_stereotype";
- 			var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+ 			var non_stereotype_text_var = document.getElementById("non_stereotype_text_6");
  			non_stereotype_text_var.classList.add("active_bold");
  			console.log('check:', non_stereotype_text_var.className);
    			 setTimeout(function(){
@@ -913,10 +937,11 @@ if (exp.response == null) {
    		 	}, 1000);
    		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
    		 	console.log("S pressed");
+        exp.allow_key_press = 0;
    			exp.response_time = Date.now() - exp.startTime
    			exp.response = "texas_border";
         exp.response_type = "stereotype"
-			var stereotype_text_var = document.getElementById("stereotype_text");
+			var stereotype_text_var = document.getElementById("stereotype_text_6");
 			stereotype_text_var.classList.add("active_bold");
 			console.log('check:', stereotype_text_var.className);
    		 	setTimeout(function(){
@@ -935,8 +960,8 @@ if (exp.response == null) {
 		// exp.audio_source = "";
 		// exp.target_source = "";
         this.log_responses();
-		var stereotype_text_var = document.getElementById("stereotype_text");
-		var non_stereotype_text_var = document.getElementById("non_stereotype_text");
+		var stereotype_text_var = document.getElementById("stereotype_text_6");
+		var non_stereotype_text_var = document.getElementById("non_stereotype_text_6");
 		stereotype_text_var.classList.remove("active_bold");
 		non_stereotype_text_var.classList.remove("active_bold");
         _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
@@ -955,7 +980,7 @@ if (exp.response == null) {
       "response_time": exp.response_time,
       "response": exp.response,
       "response_type": exp.response_type,
-      "slide_number_in_experiment": exp.phase,
+      "slide_number_in_experiment": exp.phase-6,
       stim_num: this.stim.stim_num,
       participant: this.stim.participant,
       phrase: this.stim.phrase,
@@ -1032,7 +1057,7 @@ if (exp.response == null) {
         "trials": exp.data_trials,
         "catch_trials": exp.catch_trials,
         "system": exp.system,
-        "condition": exp.condition,
+        // "condition": exp.condition,
         "subject_information": exp.subj_data,
         "time_in_minutes": (Date.now() - exp.startT) / 60000
       };
@@ -1070,10 +1095,16 @@ function init() {
 
   var stimuli = all_stims;
 
-  exp.stimuli = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block1 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block2 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block3 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block4 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block5 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
+  exp.stimuli_block6 = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
 
-  console.log(exp.stimuli)
-  exp.n_trials = exp.stimuli.length;
+
+  // console.log(exp.stimuli)
+  // exp.n_trials = exp.stimuli.length;
 
   // exp.condition = _.sample(["context", "no-context"]); //can randomize between subjects conditions here
 
