@@ -114,10 +114,10 @@ function make_slides(f) {
 		exp.response = "";
 
 // this connects to html file
-var practice1_aud = document.getElementById("girl_ex");
+var practice1_aud = document.getElementById("happy");
 
 // this indexes to the prime file name
-practice1_aud.src = "audio/girl_ex.wav";
+practice1_aud.src = "audio/happy.wav";
 practice1_aud.load();
 practice1_aud.play();
 
@@ -132,7 +132,7 @@ practice1_aud.onended = function() {
 		 e = e || window.event;
 		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
 		 	 console.log("L pressed");
-			 exp.response = "girl";
+			 exp.response = "happy";
 			 $('.err').hide();
 			 $('.correct').show();
 		 	setTimeout(function(){
@@ -141,7 +141,7 @@ practice1_aud.onended = function() {
 		 	 }, 2000);
 		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
 		 	console.log("S pressed");
-			exp.response = "boy";
+			exp.response = "sad";
 			$('.err').show();
 		 }
 	 }
@@ -191,10 +191,10 @@ practice1_aud.onended = function() {
  		exp.response = "";
 
  // this connects to html file
- var practice2_aud = document.getElementById("boy_ex");
+ var practice2_aud = document.getElementById("sad");
 
  // this indexes to the prime file name
- practice2_aud.src = "audio/boy_ex.wav";
+ practice2_aud.src = "audio/sad.wav";
  practice2_aud.load();
  practice2_aud.play();
 
@@ -209,7 +209,7 @@ practice1_aud.onended = function() {
  		 e = e || window.event;
  		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
  		 	 console.log("L pressed");
- 			 exp.response = "boy";
+ 			 exp.response = "sad";
  			 $('.correct').show();
 $('.err').hide();
               setTimeout(function(){
@@ -219,7 +219,7 @@ $('.err').hide();
 
  		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
  		 	console.log("S pressed");
- 			exp.response = "girl";
+ 			exp.response = "happy";
  			$('.err').show();
 			$('.correct').hide();
  		 	// setTimeout(function(){
@@ -317,7 +317,7 @@ if (exp.response == null) {
        e = e || window.event;
        if (e.keyCode == 76 && exp.allow_key_press == 1) {
          console.log("L pressed");
-          exp.exp.allow_key_press = 0;
+          exp.allow_key_press = 0;
 console.log("clicking disabled");
          exp.response_time = Date.now() - exp.startTime
          exp.response = "blue_collar";
@@ -993,6 +993,69 @@ if (exp.response == null) {
     },
   });
 
+  slides.follow_up = slide({
+      name: "follow_up",
+      start: function() {
+      exp.allow_key_press = 0;
+      console.log("exp.allow_key_press", exp.allow_key_press)
+      },
+
+      // handle click on "Continue" button
+      button_follow_up: function() {
+
+      if  (!$("#white_collar_1").val() |
+        !$("#white_collar_2").val() |
+        !$("#white_collar_3").val() |
+          !$("#blue_collar_1").val() |
+        !$("#blue_collar_2").val() |
+        !$("#blue_collar_3").val() |
+        !$("#born_in_us_1").val() |
+        !$("#born_in_us_2").val() |
+          !$("#born_in_us_3").val() |
+       !$("#born_outside_us_1").val() |
+        !$("#born_outside_us_2").val() |
+          !$("#born_outside_us_3").val() |
+    !$("#florida_1").val() |
+        !$("#florida_2").val() |
+          !$("#florida_3").val() |
+ !$("#texas_1").val() |
+          !$("#texas_2").val() |
+        !$("#texas_3").val()) {
+
+        $(".err").show();
+    }
+      else {
+              this.log_responses();
+              exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      }
+      },
+
+      // save response
+      log_responses: function() {
+        exp.data_trials.push({
+            "white_collar_1":$("#white_collar_1").val(),
+      "white_collar_2":$("#white_collar_2").val(),
+      "white_collar_3":$("#white_collar_3").val(),
+      "blue_collar_1":$("#blue_collar_1").val(),
+      "blue_collar_2":$("#blue_collar_2").val(),
+      "blue_collar_3":$("#blue_collar_3").val(),
+      "born_in_us_1":$("#born_in_us_1").val(),
+        "born_in_us_2":$("#born_in_us_2").val(),
+      "born_in_us_3":$("#born_in_us_3").val(),
+      "born_outside_us_1":$("#born_outside_us_1").val(),
+      "born_outside_us_2":$("#born_outside_us_2").val(),
+      "born_outside_us_3":$("#born_outside_us_3").val(),
+          "florida_1":$("#florida_1").val(),
+      "florida_2":$("#florida_2").val(),
+      "florida_3":$("#florida_3").val(),
+            "texas_1":$("#texas_1").val(),
+      "texas_2":$("#texas_2").val(),
+      "texas_3":$("#texas_3").val(),
+        });
+      }
+  });
+
+
   // slide to collect subject information
   slides.subj_info = slide({
     name: "subj_info",
@@ -1154,7 +1217,7 @@ exp.structure = [
 	"startExp"];
 exp.structure = exp.structure.concat(blocks);
 // exp.structure = exp.structure.concat(["follow_up","subj_info","thanks"]);
-exp.structure = exp.structure.concat(["subj_info","thanks"]);
+exp.structure = exp.structure.concat(["follow_up","subj_info","thanks"]);
 
   exp.data_trials = [];
 
