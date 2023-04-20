@@ -13,60 +13,6 @@ function make_slides(f) {
       },
   });
 
-    slides.block_1 = slide({
-    name: "block_1",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-  
-  slides.block_2 = slide({
-    name: "block_2",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-  
-  slides.block_3 = slide({
-    name: "block_3",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-  
-  slides.block_4 = slide({
-    name: "block_4",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-  
-  slides.block_5 = slide({
-    name: "block_5",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-  
-  slides.block_6 = slide({
-    name: "block_6",
-      start: function() {
-      },
-      button: function() {
-        // exp.go(); //use exp.go() if and only if there is no "present" data.
-      },
-  });
-
 
 // SOUND CHECK
 
@@ -132,6 +78,7 @@ practice1_aud.onended = function() {
 		 e = e || window.event;
 		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
 		 	 console.log("L pressed");
+        exp.allow_key_press = 0;
 			 exp.response = "happy";
 			 $('.err').hide();
 			 $('.correct').show();
@@ -141,6 +88,7 @@ practice1_aud.onended = function() {
 		 	 }, 2000);
 		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
 		 	console.log("S pressed");
+       exp.allow_key_press = 0;
 			exp.response = "sad";
 			$('.err').show();
 		 }
@@ -155,24 +103,11 @@ practice1_aud.onended = function() {
      },
 
      // save response
-     log_responses: function() {
-       exp.data_trials.push({
+     // log_responses: function() {
+     //   exp.data_trials.push({
 
- 	// "Response_Time": 0,
- 	// "Response": "",
-  //   "Pair_Number": "",
- 	// "List": "",
-	// "Prime": "doctor",
-  //   "Target": "nurse",
-	// "Semantically": "related",
- 	// "Trial_Type": "practice",
- 	// "Target_Word_Type": "real",
- 	// "Prime_Voice": "",
-	// "Target_Voice": "",
-	// "slide_number_in_experiment": exp.phase
-
-       });
-     },
+     //   });
+     // },
    });
 
     // PRACTICE TRIAL 2
@@ -183,7 +118,6 @@ practice1_aud.onended = function() {
      // To rotate through stimulus list
      start : function()
  	 {
-		 // IS THIS RIGHT
 		$('#stimuli').show();
 		$('.err').hide();
  		$('.correct').hide();
@@ -209,6 +143,7 @@ practice1_aud.onended = function() {
  		 e = e || window.event;
  		 if (e.keyCode == 76 && exp.allow_key_press == 1) {
  		 	 console.log("L pressed");
+        exp.allow_key_press = 0;
  			 exp.response = "sad";
  			 $('.correct').show();
 $('.err').hide();
@@ -219,6 +154,7 @@ $('.err').hide();
 
  		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
  		 	console.log("S pressed");
+       exp.allow_key_press = 0;
  			exp.response = "happy";
  			$('.err').show();
 			$('.correct').hide();
@@ -230,7 +166,79 @@ $('.err').hide();
 
   };
 
+      },
 
+      // handle click on "Continue" button
+      button: function() {
+          this.log_responses();
+          // exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      },
+
+      // save response
+      // log_responses: function() {
+      //   exp.data_trials.push({
+
+      //   });
+      // },
+    });
+
+
+   slides.attention1 = slide({
+     name: "attention1",
+
+     // To rotate through stimulus list
+     start : function()
+   {
+    $('#stimuli').show();
+    $('.err').hide();
+    $('.correct').hide();
+    exp.allow_key_press = 0;
+    exp.response = "";
+
+ // this connects to html file
+ var attention_aud = document.getElementById("attention_aud");
+
+ // this indexes to the prime file name
+attention_aud.src = "audio/attention.wav";
+attention_aud.load();
+attention_aud.play();
+
+attention_aud.onended = function() {
+  console.log("audio ended");
+      exp.allow_key_press = 1;
+  // setTimeout(function(){
+  //  }, 500);
+
+   document.onkeydown = checkKey;
+   function checkKey(e) {
+     e = e || window.event;
+     if (e.keyCode == 76 && exp.allow_key_press == 1) {
+       console.log("L pressed");
+       exp.response = "yes";
+       console.log(exp.response);
+                 exp.allow_key_press = 0;
+   var yes1_text_var = document.getElementById("yes1");
+      yes1_text_var.classList.add("active_bold");
+              setTimeout(function(){
+         _s.button();
+        exp.go();
+       }, 2000);
+
+
+     } if (e.keyCode == 83 && exp.allow_key_press == 1) {
+      console.log("S pressed");
+      exp.response = "no";
+      console.log(exp.response);
+                exp.allow_key_press = 0;
+   var no1_text_var = document.getElementById("no1");
+      no1_text_var.classList.add("active_bold");
+      setTimeout(function(){
+         _s.button();
+       exp.go();
+       }, 2000);
+     }
+   }
+  };
       },
 
       // handle click on "Continue" button
@@ -242,25 +250,371 @@ $('.err').hide();
       // save response
       log_responses: function() {
         exp.data_trials.push({
+      
 
-  // 	"Response_Time": 0,
-  // 	"Response": "",
-  //    "Pair_Number": "",
-  // 	"List": "",
- 	// "Prime": "doctor",
-  //    "Target": "wug",
- 	// "Semantically": "unrelated",
-  // 	"Trial_Type": "practice",
-  // 	"Target_Word_Type": "pseudo",
-  // 	"Prime_Voice": "",
- 	// "Target_Voice": "",
- 	// "slide_number_in_experiment": exp.phase
+      "block": "attention1",
+      "choices": "no-yes",
+      "response_time": "",
+      "response": exp.response,
+      "response_type": "",
+      "slide_number_in_experiment": exp.phase-6,
+      stim_num: "",
+      participant: "",
+      phrase: "",
+      gender: "",
+      start_time: "",
+      end_time: "",
+      duration: ""
 
         });
       },
     });
 
-   // set up slide with instructions for main experiment
+
+ // ATTENTION SLIDE 2
+
+   slides.attention2 = slide({
+     name: "attention2",
+
+     // To rotate through stimulus list
+     start : function()
+   {
+    $('#stimuli').show();
+    exp.allow_key_press = 0;
+    exp.response = "";
+
+ // this connects to html file
+ var attention_aud = document.getElementById("attention_aud");
+
+ // this indexes to the prime file name
+attention_aud.src = "audio/attention.wav";
+attention_aud.load();
+attention_aud.play();
+
+attention_aud.onended = function() {
+  console.log("audio ended");
+      exp.allow_key_press = 1;
+  // setTimeout(function(){
+  //  }, 500);
+
+   document.onkeydown = checkKey;
+   function checkKey(e) {
+     e = e || window.event;
+     if (e.keyCode == 76 && exp.allow_key_press == 1) {
+       console.log("L pressed");
+       exp.response = "yes";
+                 exp.allow_key_press = 0;
+   var yes2_text_var = document.getElementById("yes2");
+      yes2_text_var.classList.add("active_bold");
+              setTimeout(function(){
+                _s.button();
+        exp.go();
+       }, 2000);
+
+
+     } if (e.keyCode == 83 && exp.allow_key_press == 1) {
+      console.log("S pressed");
+      exp.response = "no";
+                exp.allow_key_press = 0;
+   var no2_text_var = document.getElementById("no2");
+      no2_text_var.classList.add("active_bold");
+      setTimeout(function(){
+        _s.button();
+       exp.go();
+       }, 2000);
+     }
+   }
+  };
+      },
+
+      // handle click on "Continue" button
+      button: function() {
+          this.log_responses();
+          // exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      },
+
+      // save response
+      log_responses: function() {
+        exp.data_trials.push({
+      
+      "block": "attention2",
+      "choices": "no-yes",
+      "response_time": "",
+      "response": exp.response,
+      "response_type": "",
+      "slide_number_in_experiment": exp.phase-6,
+      stim_num: "",
+      participant: "",
+      phrase: "",
+      gender: "",
+      start_time: "",
+      end_time: "",
+      duration: ""
+
+        });
+      },
+    });
+
+  // ATTENTION SLIDE 3
+
+   slides.attention3 = slide({
+     name: "attention3",
+
+     // To rotate through stimulus list
+     start : function()
+   {
+    $('#stimuli').show();
+    $('.err').hide();
+    $('.correct').hide();
+    exp.allow_key_press = 0;
+    exp.response = "";
+
+ // this connects to html file
+ var attention_aud = document.getElementById("attention_aud");
+
+ // this indexes to the prime file name
+attention_aud.src = "audio/attention.wav";
+attention_aud.load();
+attention_aud.play();
+
+attention_aud.onended = function() {
+  console.log("audio ended");
+      exp.allow_key_press = 1;
+  // setTimeout(function(){
+  //  }, 500);
+
+   document.onkeydown = checkKey;
+   function checkKey(e) {
+     e = e || window.event;
+     if (e.keyCode == 76 && exp.allow_key_press == 1) {
+       console.log("L pressed");
+       exp.response = "yes";
+                 exp.allow_key_press = 0;
+     var yes3_text_var = document.getElementById("yes3");
+      yes3_text_var.classList.add("active_bold");
+              setTimeout(function(){
+                _s.button();
+        exp.go();
+       }, 2000);
+
+
+     } if (e.keyCode == 83 && exp.allow_key_press == 1) {
+      console.log("S pressed");
+      exp.response = "no";
+                exp.allow_key_press = 0;
+     var no3_text_var = document.getElementById("no3");
+      no3_text_var.classList.add("active_bold");
+      setTimeout(function(){
+        _s.button();
+       exp.go();
+       }, 2000);
+     }
+   }
+  };
+      },
+
+      // handle click on "Continue" button
+      button: function() {
+          this.log_responses();
+          // exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      },
+
+      // save response
+      log_responses: function() {
+        exp.data_trials.push({
+      
+      "block": "attention3",
+      "choices": "no-yes",
+      "response_time": "",
+      "response": exp.response,
+      "response_type": "",
+      "slide_number_in_experiment": exp.phase-6,
+      stim_num: "",
+      participant: "",
+      phrase: "",
+      gender: "",
+      start_time: "",
+      end_time: "",
+      duration: ""
+
+        });
+      },
+    });
+
+     // ATTENTION SLIDE 4
+
+   slides.attention4 = slide({
+     name: "attention4",
+
+     // To rotate through stimulus list
+     start : function()
+   {
+    $('#stimuli').show();
+    $('.err').hide();
+    $('.correct').hide();
+    exp.allow_key_press = 0;
+    exp.response = "";
+
+ // this connects to html file
+ var attention_aud = document.getElementById("attention_aud");
+
+ // this indexes to the prime file name
+attention_aud.src = "audio/attention.wav";
+attention_aud.load();
+attention_aud.play();
+
+attention_aud.onended = function() {
+  console.log("audio ended");
+      exp.allow_key_press = 1;
+  // setTimeout(function(){
+  //  }, 500);
+
+   document.onkeydown = checkKey;
+   function checkKey(e) {
+     e = e || window.event;
+     if (e.keyCode == 76 && exp.allow_key_press == 1) {
+       console.log("L pressed");
+       exp.response = "no";
+                 exp.allow_key_press = 0;
+     var no4_text_var = document.getElementById("no4");
+      no4_text_var.classList.add("active_bold");
+              setTimeout(function(){
+                _s.button();
+        exp.go();
+       }, 2000);
+
+
+     } if (e.keyCode == 83 && exp.allow_key_press == 1) {
+      console.log("S pressed");
+      exp.response = "yes";
+                exp.allow_key_press = 0;
+     var yes4_text_var = document.getElementById("yes4");
+      yes4_text_var.classList.add("active_bold");
+      setTimeout(function(){
+        _s.button();
+       exp.go();
+       }, 2000);
+     }
+   }
+  };
+      },
+
+      // handle click on "Continue" button
+      button: function() {
+          this.log_responses();
+          // exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      },
+
+      // save response
+      log_responses: function() {
+        exp.data_trials.push({
+      
+      "block": "attention4",
+      "choices": "yes-no",
+      "response_time": "",
+      "response": exp.response,
+      "response_type": "",
+      "slide_number_in_experiment": exp.phase-6,
+      stim_num: "",
+      participant: "",
+      phrase: "",
+      gender: "",
+      start_time: "",
+      end_time: "",
+      duration: ""
+
+        });
+      },
+    });
+
+  // ATTENTION SLIDE 5
+
+   slides.attention5 = slide({
+     name: "attention5",
+
+     // To rotate through stimulus list
+     start : function()
+   {
+    $('#stimuli').show();
+    $('.err').hide();
+    $('.correct').hide();
+    exp.allow_key_press = 0;
+    exp.response = "";
+
+ // this connects to html file
+ var attention_aud = document.getElementById("attention_aud");
+
+ // this indexes to the prime file name
+attention_aud.src = "audio/attention.wav";
+attention_aud.load();
+attention_aud.play();
+
+attention_aud.onended = function() {
+  console.log("audio ended");
+      exp.allow_key_press = 1;
+  // setTimeout(function(){
+  //  }, 500);
+
+   document.onkeydown = checkKey;
+   function checkKey(e) {
+     e = e || window.event;
+     if (e.keyCode == 76 && exp.allow_key_press == 1) {
+       console.log("L pressed");
+       exp.response = "no";
+                 exp.allow_key_press = 0;
+     var no5_text_var = document.getElementById("no5");
+      no5_text_var.classList.add("active_bold");
+              setTimeout(function(){
+                _s.button();
+        exp.go();
+       }, 2000);
+
+
+     } if (e.keyCode == 83 && exp.allow_key_press == 1) {
+      console.log("S pressed");
+      exp.response = "yes";
+                exp.allow_key_press = 0;
+     var yes5_text_var = document.getElementById("yes5");
+      yes5_text_var.classList.add("active_bold");
+      setTimeout(function(){
+        _s.button();
+       exp.go();
+       }, 2000);
+     }
+   }
+  };
+      },
+
+      // handle click on "Continue" button
+      button: function() {
+          this.log_responses();
+          // exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+      },
+
+      // save response
+      log_responses: function() {
+        exp.data_trials.push({
+      
+      "block": "attention5",
+      "choices": "yes-no",
+      "response_time": "",
+      "response": exp.response,
+      "response_type": "",
+      "slide_number_in_experiment": exp.phase-6,
+      stim_num: "",
+      participant: "",
+      phrase: "",
+      gender: "",
+      start_time: "",
+      end_time: "",
+      duration: ""
+
+        });
+      },
+    });
+
+
+   // INSTRUCTIONS FOR MAIN EXPERIMENT
    slides.startExp = slide({
      name: "startExp",
      start: function() {
@@ -1061,14 +1415,16 @@ if (exp.response == null) {
     name: "subj_info",
     submit: function(e) {
 
+  var check_race = document.querySelectorAll('[name="race"]:checked');
 
 	  if  (
-		  !$("#heritage_country").val() |
+		  // !$("#heritage_country").val() |
+      // !$("#english_acquisition_age").val() |
 		  !$("#current_region").val() |
 		  !$("#first_language").val() |
 		  !$("#parent_languages").val() |
-	  	  !$("#exposure").val() |
-		  !$("#english_acquisition_age").val()) {
+      check_race.length < 1 |
+	  	  !$("#exposure").val()) {
 
 	  	$(".err").show();
 	}
@@ -1215,8 +1571,10 @@ exp.structure = [
 	"practice_trial_1",
 	"practice_trial_2",
 	"startExp"];
-exp.structure = exp.structure.concat(blocks);
-// exp.structure = exp.structure.concat(["follow_up","subj_info","thanks"]);
+// exp.structure = exp.structure.concat(blocks);
+// exp.structure =  exp.structure.concat(blocks[0], "attention1", blocks[1], "attention5", blocks[2], "attention3", blocks[3], "attention4", blocks[4], "attention2", blocks[5]);
+
+exp.structure =  exp.structure.concat(blocks[0], "attention1", blocks[1], "attention4", blocks[2], "attention2", blocks[3], "attention5", blocks[4], "attention3", blocks[5]);
 exp.structure = exp.structure.concat(["follow_up","subj_info","thanks"]);
 
   exp.data_trials = [];
