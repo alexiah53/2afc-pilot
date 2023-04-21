@@ -199,7 +199,7 @@ $('.err').hide();
  var attention_aud = document.getElementById("attention_aud");
 
  // this indexes to the prime file name
-attention_aud.src = "audio/attention.wav";
+attention_aud.src = "audio/one_one_two.wav";
 attention_aud.load();
 attention_aud.play();
 
@@ -260,7 +260,7 @@ attention_aud.onended = function() {
       "slide_number_in_experiment": exp.phase-6,
       stim_num: "",
       participant: "",
-      phrase: "",
+      phrase: "one_one_two",
       gender: "",
       start_time: "",
       end_time: "",
@@ -287,7 +287,7 @@ attention_aud.onended = function() {
  var attention_aud = document.getElementById("attention_aud");
 
  // this indexes to the prime file name
-attention_aud.src = "audio/attention.wav";
+attention_aud.src = "audio/one_one_four.wav";
 attention_aud.load();
 attention_aud.play();
 
@@ -345,7 +345,7 @@ attention_aud.onended = function() {
       "slide_number_in_experiment": exp.phase-6,
       stim_num: "",
       participant: "",
-      phrase: "",
+      phrase: "one_one_four",
       gender: "",
       start_time: "",
       end_time: "",
@@ -373,7 +373,7 @@ attention_aud.onended = function() {
  var attention_aud = document.getElementById("attention_aud");
 
  // this indexes to the prime file name
-attention_aud.src = "audio/attention.wav";
+attention_aud.src = "audio/one_two_three.wav";
 attention_aud.load();
 attention_aud.play();
 
@@ -431,7 +431,7 @@ attention_aud.onended = function() {
       "slide_number_in_experiment": exp.phase-6,
       stim_num: "",
       participant: "",
-      phrase: "",
+      phrase: "one_two_three",
       gender: "",
       start_time: "",
       end_time: "",
@@ -459,7 +459,7 @@ attention_aud.onended = function() {
  var attention_aud = document.getElementById("attention_aud");
 
  // this indexes to the prime file name
-attention_aud.src = "audio/attention.wav";
+attention_aud.src = "audio/one_two_five.wav";
 attention_aud.load();
 attention_aud.play();
 
@@ -517,7 +517,7 @@ attention_aud.onended = function() {
       "slide_number_in_experiment": exp.phase-6,
       stim_num: "",
       participant: "",
-      phrase: "",
+      phrase: "one_two_five",
       gender: "",
       start_time: "",
       end_time: "",
@@ -545,7 +545,7 @@ attention_aud.onended = function() {
  var attention_aud = document.getElementById("attention_aud");
 
  // this indexes to the prime file name
-attention_aud.src = "audio/attention.wav";
+attention_aud.src = "audio/three_two_one.wav";
 attention_aud.load();
 attention_aud.play();
 
@@ -603,7 +603,7 @@ attention_aud.onended = function() {
       "slide_number_in_experiment": exp.phase-6,
       stim_num: "",
       participant: "",
-      phrase: "",
+      phrase: "three_two_one",
       gender: "",
       start_time: "",
       end_time: "",
