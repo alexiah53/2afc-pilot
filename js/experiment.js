@@ -88,7 +88,7 @@ practice1_aud.onended = function() {
 		 	 }, 2000);
 		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
 		 	console.log("S pressed");
-       exp.allow_key_press = 0;
+       // exp.allow_key_press = 0;
 			exp.response = "sad";
 			$('.err').show();
 		 }
@@ -154,7 +154,7 @@ $('.err').hide();
 
  		 } if (e.keyCode == 83 && exp.allow_key_press == 1) {
  		 	console.log("S pressed");
-       exp.allow_key_press = 0;
+       // exp.allow_key_press = 0;
  			exp.response = "happy";
  			$('.err').show();
 			$('.correct').hide();
